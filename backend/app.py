@@ -19,6 +19,7 @@ CORS(app)
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String, unique = True, nullable = False)
+    author = db.Column(db.String, nullable = False)
     review = db.Column(db.String, nullable = True)
     genre = db.Column(db.String, nullable = True)
     price = db.Column(db.Float, nullable = True)
@@ -32,20 +33,20 @@ class Book(db.Model):
 
 class BookSchema(ma.Schema):
     class Meta:
-        fields = ("id", "title", "author")
+        fields = ("id", "title", "author", "review", "genre", "price")
 
 book_schema = BookSchema()
 multiple_book_schema = BookSchema(many = True)
 
-@app.route('/book/add', methods = ['POST'])
+@app.route('/book', methods = ['POST'])
 def add_book():
 
     post_data = request.get_json()
-    title = post.data.get('title')
-    author = post.data.get('author')
-    review = post.data.get('review')
-    genre = post.data.get('genre')
-    price = post.data.get('price')
+    title = post_data.get('title')
+    author = post_data.get('author')
+    review = post_data.get('review')
+    genre = post_data.get('genre')
+    price = post_data.get('price')
 
     book = db.session.query(Book).filter(Book.title == title).first()
 
@@ -58,9 +59,9 @@ def add_book():
 
     return jsonify("You've added a book!")
 
-@app.route('/book/add', methods = ['GET'])
+@app.route('/books', methods = ['GET'])
 def get_books():
-    book = db.session.query(Book).all()
+    books = db.session.query(Book).all()
     return jsonify(multiple_book_schema.dump(books))
 
 if __name__ == "__main__":
