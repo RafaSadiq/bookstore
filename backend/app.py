@@ -59,6 +59,41 @@ def add_book():
 
     return jsonify("You've added a book!")
 
+@app.route('/book/<id>', methods = ['PUT', 'PATCH'])
+def edit_book(id):
+
+    post_data = request.get_json()
+    title = post_data.get('title')
+    author = post_data.get('author')
+    review = post_data.get('review')
+    genre = post_data.get('genre')
+    price = post_data.get('price')
+
+    book = db.session.query(Book).filter(Book.id == id).first()
+
+    if title != None:
+        book.title = title
+    if author != None:
+        book.author = author
+    if review != None:
+        book.review = review
+    if genre != None:
+        book.genre = genre
+    if price != None:
+        book.price = price
+
+    db.session.commit()
+    return jsonify('Book was Updated')
+
+
+@app.route('/book/<id>', methods = ['DELETE'])
+def delete_books(id):
+    book = db.session.query(Book).filter(Book.id == id).first()
+    db.session.delete(book)
+    db.session.commit()
+
+    return jsonify(f'The book {book.title} has been deleted')
+
 @app.route('/books', methods = ['GET'])
 def get_books():
     books = db.session.query(Book).all()
