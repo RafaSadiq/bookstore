@@ -22,7 +22,7 @@ export default function SignUp() {
             setError(true);
             setErrorMessage('Error: Passwords must match!')
         } else {
-            fetch('http://localhost:3000/user', {
+            fetch('http://localhost:5000/user', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -55,7 +55,7 @@ export default function SignUp() {
                 <input type = "text" placeholder = "Password" name = "password" value = {password} onChange = {(e) => setPassword(e.target.value)} />
                 <input type = "text" placeholder = "Confirm Password" name = "confirmpassword" value = {confirmPassword} onChange = {(e) => setConfirmPassword(e.target.value)} />
 
-                <button className = "btn">
+                <button className = "btn" >
                     Submit
                 </button>
             </form>

@@ -1,7 +1,7 @@
 import React from "react";
 import { A } from 'hookrouter';
 
-export default function NavBar() {
+export default function NavBar(props) {
     return ( 
         <div className = 'nav-container'>
             <div className = 'nav-link-container'>

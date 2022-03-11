@@ -11,6 +11,7 @@ export default function Book(props) {
             <div className="author">{author}</div>
             <div className="price">{price}</div>
             <br></br>
+            <button onClick={() => props.handleEditClick(props.book)}>Edit</button>
         </div>
     ) 
 }

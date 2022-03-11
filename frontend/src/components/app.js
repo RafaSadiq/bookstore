@@ -23,7 +23,7 @@ export default function App() {
 
     const routes = {
         '/': () => <Home loggedIn = { loggedIn } />,
-        '/addbook': () => <AddBook />,
+        '/addbook': () => <AddBook request = {'add'} />,
         '/signup': () => <SignUp />,
         '/login': () => <LogIn />
 
