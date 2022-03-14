@@ -19,7 +19,7 @@ export default function SignUp() {
             setError(true);
             setErrorMessage('Error: All fields must be completed.')
         } else {
-            fetch('http://localhost:3000/user', {
+            fetch(`http://localhost:5000/user`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

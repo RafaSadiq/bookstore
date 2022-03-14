@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { navigate } from 'hookrouter';
 
 export default function AddBook(props) {
     const [ title, setTitle ] = useState('');
@@ -15,7 +16,7 @@ export default function AddBook(props) {
         e.preventDefault();
 
         fetch(endPoint, {
-            method: request,
+            method: `${request}`,
             headers: {
                 "content-type": "applications/json"
             },
@@ -27,30 +28,36 @@ export default function AddBook(props) {
                 genre: genre,
                 price: price
             })
-        }).then(res => {
+        })
+        .then(res => {
+            console.log(res);
             if(props.edit === true) {
-                props.handleEditSubmit();
+                props.handleEditSubmit()
+            } else {
+                navigate('/');
             }
         })
+
+        .catch(error => console.log('An error has occured in your post request.', error));
     }
 
     useEffect( () => {
         if(requestType === 'add') {
-            setEndPoint('http://localhost:5000/book');
+            setEndPoint(`http://127.0.0.1:5000/book`);
             setRequest('POST');
         } else if (requestType === 'update') {
-            // setEndPoint(`http://localhost:5000/book/${bookToEdit.id}`); 
+            setEndPoint(`http://127.0.0.1:5000/book/${bookToEdit.id}`); 
             setRequest('PUT');
-                if(bookToEdit) {
-                    setTitle(bookToEdit.title);
-                    setAuthor(bookToEdit.author);
-                    setReview(bookToEdit.review);
-                    setGenre(bookToEdit.genre);
-                    setPrice(bookToEdit.price)
-                }
+
+            if(bookToEdit) {
+                setTitle(bookToEdit.title);
+                setAuthor(bookToEdit.author);
+                setReview(bookToEdit.review);
+                setGenre(bookToEdit.genre);
+                setPrice(bookToEdit.price)
+            }
         }
-        
-    }, [])
+    }, []);
 
     return (
         <div className = "add-book-container">

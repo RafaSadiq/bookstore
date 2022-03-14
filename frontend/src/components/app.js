@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRoutes } from 'hookrouter';
 import Home from "./pages/home";
 import NavBar from './navigation/navBar';
-import AddBook from './pages/books/add-book';
+import AddBook from './pages/addbook';
 import SignUp from './pages/auth/signUp';
 import LogIn from './pages/auth/login';
 import Cookies from 'js-cookie';

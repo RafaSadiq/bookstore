@@ -45,6 +45,11 @@ export default function SignUp() {
                     navigate('/');
                 }
             })
+            .catch(error => {
+                console.log('Error creating your user', error);
+                setError(true);
+                setErrorMessage('Error adding user! Try again please.');
+            })
         }
     }
 
@@ -59,6 +64,7 @@ export default function SignUp() {
                     Submit
                 </button>
             </form>
+            <h6 style={{visibility: error ? 'visible' : 'hidden'}}>{errorMessage}</h6>
         </div>
     )
 }
